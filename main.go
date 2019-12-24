@@ -2,11 +2,16 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
-func webHook(r http.ResponseWriter, w *http.Request)  {
-	fmt.Println(r,w)
+func webHook(w http.ResponseWriter, r *http.Request)  {
+	body,err := ioutil.ReadAll(r.Body)
+	if err != nil{
+		panic(fmt.Sprintf("读取文件异常 err[%s]",err))
+	}
+	fmt.Println(string(body))
 }
 
 func main(){
